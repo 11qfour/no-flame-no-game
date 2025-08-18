@@ -1,0 +1,603 @@
+/* Стили для страницы аналитики */
+
+.analytics-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+.analytics-content section {
+    margin-bottom: 50px;
+}
+
+.analytics-content h2 {
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.analytics-content h2 i {
+    color: #667eea;
+}
+
+/* Сводка */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.summary-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 25px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.summary-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+.summary-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    font-size: 1.5em;
+}
+
+.summary-content h3 {
+    font-size: 2em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.summary-content p {
+    color: #666;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+/* Карточки анализа */
+.analysis-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.chart-container {
+    padding: 30px;
+    background: rgba(248, 249, 250, 0.5);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.analysis-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.insights {
+    padding: 30px;
+}
+
+.insights h4 {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.insights h4::before {
+    content: "💡";
+    font-size: 1.2em;
+}
+
+.insights ul {
+    list-style: none;
+    padding: 0;
+}
+
+.insights li {
+    background: rgba(102, 126, 234, 0.05);
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+}
+
+.insights li:hover {
+    background: rgba(102, 126, 234, 0.1);
+    transform: translateX(5px);
+}
+
+.insights li:last-child {
+    margin-bottom: 0;
+}
+
+/* Аномалии */
+#anomaliesContainer {
+    padding: 30px;
+}
+
+.anomaly-item {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-left: 5px solid;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.anomaly-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.anomaly-item.severity-low {
+    border-left-color: #28a745;
+}
+
+.anomaly-item.severity-medium {
+    border-left-color: #ffc107;
+}
+
+.anomaly-item.severity-high {
+    border-left-color: #dc3545;
+}
+
+.anomaly-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.anomaly-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1em;
+}
+
+.severity-low .anomaly-icon {
+    background: #28a745;
+}
+
+.severity-medium .anomaly-icon {
+    background: #ffc107;
+}
+
+.severity-high .anomaly-icon {
+    background: #dc3545;
+}
+
+.anomaly-title {
+    font-weight: 600;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.anomaly-description {
+    color: #666;
+    line-height: 1.5;
+    margin-left: 55px;
+}
+
+/* Временной анализ */
+#timeAnalysisContainer {
+    padding: 30px;
+}
+
+.time-interval {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(102, 126, 234, 0.05);
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.time-interval:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.time-label {
+    font-weight: 600;
+    color: #333;
+}
+
+.activity-level {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: white;
+}
+
+.activity-level.low {
+    background: #28a745;
+}
+
+.activity-level.medium {
+    background: #ffc107;
+}
+
+.activity-level.high {
+    background: #fd7e14;
+}
+
+.activity-level.very-high {
+    background: #dc3545;
+}
+
+/* Рекомендации */
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.recommendation-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.recommendation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.recommendation-card i {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.recommendation-card h4 {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Стили для информации о зонах */
+.zones-map-info {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+.zones-map-info p {
+    margin: 0 0 10px 0;
+    color: #495057;
+}
+
+.zones-map-info ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.zones-map-info li {
+    margin: 5px 0;
+    color: #6c757d;
+}
+
+.zone-color {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.zone-color.light {
+    background-color: #ffa726;
+}
+
+.zone-color.medium {
+    background-color: #ffb74d;
+}
+
+.zone-color.high {
+    background-color: #ff7043;
+}
+
+.zone-color.very-high {
+    background-color: #d84315;
+}
+
+/* Дополнительные стили для зон */
+.zone-coordinates {
+    font-size: 0.85em;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+.heat-level {
+    font-size: 0.8em;
+    color: #495057;
+    margin-top: 3px;
+    font-weight: 500;
+}
+
+.zone-item.light {
+    border-left-color: #ffa726;
+}
+
+.zone-item.medium {
+    border-left-color: #ffb74d;
+}
+
+.zone-item.high {
+    border-left-color: #ff7043;
+}
+
+.zone-item.very-high {
+    border-left-color: #d84315;
+}
+
+
+.recommendation-card p {
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .analytics-content {
+        padding: 20px;
+    }
+    
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .summary-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .summary-content h3 {
+        font-size: 1.8em;
+    }
+    
+    .chart-container {
+        padding: 20px;
+    }
+    
+    .insights {
+        padding: 20px;
+    }
+    
+    .recommendations-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .anomaly-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .anomaly-description {
+        margin-left: 0;
+        text-align: center;
+    }
+    
+    .time-interval {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+/* Анимации */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.analytics-content section {
+    animation: slideInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.analytics-content section:nth-child(1) { animation-delay: 0.1s; }
+.analytics-content section:nth-child(2) { animation-delay: 0.2s; }
+.analytics-content section:nth-child(3) { animation-delay: 0.3s; }
+.analytics-content section:nth-child(4) { animation-delay: 0.4s; }
+.analytics-content section:nth-child(5) { animation-delay: 0.5s; }
+.analytics-content section:nth-child(6) { animation-delay: 0.6s; }
+.analytics-content section:nth-child(7) { animation-delay: 0.7s; }
+
+/* Стили для анализа времени пребывания */
+.dwell-time-section {
+    margin-top: 40px;
+}
+
+.dwell-time-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    padding: 20px;
+}
+
+.time-thresholds h4,
+.active-zones h4 {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+.threshold-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.threshold-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border-left: 4px solid;
+    transition: all 0.3s ease;
+}
+
+.threshold-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.threshold-item.light {
+    border-left-color: #ffa726;
+}
+
+.threshold-item.medium {
+    border-left-color: #ffb74d;
+}
+
+.threshold-item.high {
+    border-left-color: #ff7043;
+}
+
+.threshold-item.very-high {
+    border-left-color: #d84315;
+}
+
+.threshold-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.threshold-item.light .threshold-color {
+    background: #ffa726;
+}
+
+.threshold-item.medium .threshold-color {
+    background: #ffb74d;
+}
+
+.threshold-item.high .threshold-color {
+    background: #ff7043;
+}
+
+.threshold-item.very-high .threshold-color {
+    background: #d84315;
+}
+
+.threshold-label {
+    font-weight: 500;
+    color: #555;
+}
+
+.active-zones {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.zone-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.zone-item:last-child {
+    border-bottom: none;
+}
+
+.zone-info {
+    flex: 1;
+}
+
+.zone-location {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.zone-description {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.zone-time {
+    font-weight: 600;
+    color: #667eea;
+    font-size: 1.1em;
+}
+
+/* Адаптивность для анализа времени пребывания */
+@media (max-width: 768px) {
+    .dwell-time-info {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .threshold-item {
+        padding: 10px 12px;
+    }
+    
+    .threshold-label {
+        font-size: 0.9em;
+    }
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura - Оценка траекторий</title>
+            <link rel="stylesheet" href="/static/css/style.css">
+        <link rel="stylesheet" href="/static/css/trajectory_rating.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <h1>🎯 Оценка траекторий</h1>
+            <p>Помогите системе научиться правильно определять пути движения людей</p>
+        </header>
+
+        <div class="rating-container">
+            <!-- Информация о видео -->
+            <div class="video-info">
+                <h3>📹 Видео: <span id="video-name">{{ video_name }}</span></h3>
+                <p>Траектория <span id="trajectory-id">{{ trajectory_id }}</span> из <span id="total-trajectories">{{ total_trajectories }}</span></p>
+            </div>
+
+            <!-- GIF с траекторией -->
+            <div class="trajectory-gif">
+                <h4>🎬 Анимация траектории</h4>
+                <div class="gif-container">
+                    <img id="trajectory-gif" src="{{ gif_path }}" alt="Траектория движения">
+                </div>
+            </div>
+
+            <!-- Система оценки -->
+            <div class="rating-section">
+                <h4>⭐ Оцените качество траектории</h4>
+                
+                <!-- Звезды -->
+                <div class="stars-container">
+                    <div class="stars">
+                        <i class="fas fa-star" data-rating="1"></i>
+                        <i class="fas fa-star" data-rating="2"></i>
+                        <i class="fas fa-star" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                    <p class="rating-text">Выберите оценку</p>
+                </div>
+
+                <!-- Комментарий -->
+                <div class="comment-section">
+                    <label for="comment">💬 Что можно улучшить?</label>
+                    <textarea id="comment" placeholder="Опишите проблемы или предложения..."></textarea>
+                </div>
+
+                <!-- Настройки плавности -->
+                <div class="smoothness-section">
+                    <label for="smoothness-slider">🎨 Плавность линий: <span id="smoothness-value">0.1</span></label>
+                    <input type="range" id="smoothness-slider" min="0.01" max="1.0" step="0.01" value="0.1">
+                    <p class="smoothness-description">Меньше значение = более плавные линии</p>
+                </div>
+
+                <!-- Кнопки -->
+                <div class="action-buttons">
+                    <button id="submit-rating" class="btn btn-primary" disabled>
+                        <i class="fas fa-check"></i> Отправить оценку
+                    </button>
+                    <button id="regenerate-gif" class="btn btn-secondary">
+                        <i class="fas fa-sync"></i> Пересоздать GIF
+                    </button>
+                    <button id="skip-trajectory" class="btn btn-outline">
+                        <i class="fas fa-forward"></i> Пропустить
+                    </button>
+                </div>
+            </div>
+
+            <!-- Статистика -->
+            <div class="statistics-section">
+                <h4>📊 Статистика оценок</h4>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-rated">0</span>
+                        <span class="stat-label">Оценено</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="avg-rating">0.0</span>
+                        <span class="stat-label">Средняя оценка</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="remaining">0</span>
+                        <span class="stat-label">Осталось</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Прогресс -->
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p class="progress-text">Прогресс</p>
+        </div>
+
+        <!-- Навигация -->
+        <div class="navigation-section">
+            <button id="prev-trajectory" class="btn btn-outline" disabled>
+                <i class="fas fa-chevron-left"></i> Предыдущая
+            </button>
+            <button id="next-trajectory" class="btn btn-outline" disabled>
+                Следующая <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Модальное окно завершения -->
+        <div id="completion-modal" class="modal">
+            <div class="modal-content">
+                <h3>🎉 Анализ завершен!</h3>
+                <p>Вы оценили все траектории в этом видео.</p>
+                <div class="completion-stats">
+                    <p>📊 <strong>Итоговая статистика:</strong></p>
+                    <ul id="final-stats"></ul>
+                </div>
+                <div class="modal-buttons">
+                    <button id="export-results" class="btn btn-success">
+                        <i class="fas fa-download"></i> Экспорт результатов
+                    </button>
+                    <button id="view-all-trajectories" class="btn btn-primary">
+                        <i class="fas fa-map"></i> Посмотреть все траектории
+                    </button>
+                    <button id="upload-new-video" class="btn btn-secondary">
+                        <i class="fas fa-upload"></i> Загрузить новое видео
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            <!-- Скрытые поля с данными для JavaScript -->
+        <input type="hidden" id="video-filename" value="{{ video_name }}">
+        <input type="hidden" id="trajectory-id-value" value="{{ trajectory_id }}">
+        <input type="hidden" id="total-trajectories-value" value="{{ total_trajectories }}">
+        
+        <script src="/static/js/trajectory_rating.js"></script>
+</body>
+</html>

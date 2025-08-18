@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результаты анализа - Aura</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/analytics.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Хедер -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Aura</h1>
+                    <span class="tagline">Результаты анализа</span>
+                </div>
+            </div>
+            <nav class="nav">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Главная
+                </a>
+            </nav>
+        </header>
+
+        <!-- Основной контент -->
+        <main class="analytics-content">
+            <!-- Сводка -->
+            <section class="summary-section">
+                <h2><i class="fas fa-chart-line"></i> Общая сводка</h2>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3 id="totalVisitors">-</h3>
+                            <p>Всего посетителей</p>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3 id="maxConcurrent">-</h3>
+                            <p>Максимум одновременно</p>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3 id="avgDuration">-</h3>
+                            <p>Среднее время визита</p>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3 id="peakTime">-</h3>
+                            <p>Время пика</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Тепловая карта -->
+            <section class="heatmap-section">
+                <h2><i class="fas fa-fire"></i> Тепловая карта популярности</h2>
+                <div class="analysis-card">
+                    <div class="chart-container">
+                        <img id="heatmapImage" src="" alt="Тепловая карта" class="analysis-image">
+                    </div>
+                    <div class="insights">
+                        <h4>Ключевые инсайты:</h4>
+                        <ul id="heatmapInsights">
+                            <li>Загрузка данных...</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Анализ времени пребывания -->
+            <section class="dwell-time-section" id="dwellTimeSection" style="display: none;">
+                <h2><i class="fas fa-clock"></i> Анализ времени пребывания</h2>
+                <div class="analysis-card">
+                    <div class="dwell-time-info">
+                        <div class="time-thresholds">
+                            <h4>Пороги времени:</h4>
+                            <div class="threshold-grid">
+                                <div class="threshold-item light">
+                                    <span class="threshold-color"></span>
+                                    <span class="threshold-label">1+ сек - Легкая активность</span>
+                                </div>
+                                <div class="threshold-item medium">
+                                    <span class="threshold-color"></span>
+                                    <span class="threshold-label">3+ сек - Средняя активность</span>
+                                </div>
+                                <div class="threshold-item high">
+                                    <span class="threshold-color"></span>
+                                    <span class="threshold-label">5+ сек - Высокая активность</span>
+                                </div>
+                                <div class="threshold-item very-high">
+                                    <span class="threshold-color"></span>
+                                    <span class="threshold-label">10+ сек - Очень высокая активность</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="active-zones">
+                            <h4>Активные зоны:</h4>
+                            <div id="activeZonesList">
+                                <p>Загрузка данных о зонах...</p>
+                            </div>
+                            <div class="zones-map-info">
+                                <p><strong>💡 Как читать карту:</strong></p>
+                                <ul>
+                                    <li><span class="zone-color light"></span> <strong>1+ сек</strong> - Легкая активность (оранжевый)</li>
+                                    <li><span class="zone-color medium"></span> <strong>3+ сек</strong> - Средняя активность (желтый)</li>
+                                    <li><span class="zone-color high"></span> <strong>5+ сек</strong> - Высокая активность (красный)</li>
+                                    <li><span class="zone-color very-high"></span> <strong>10+ сек</strong> - Очень высокая активность (темно-красный)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Тропы желаний -->
+            <section class="paths-section">
+                <h2><i class="fas fa-route"></i> Тропы желаний</h2>
+                <div class="analysis-card">
+                    <div class="chart-container">
+                        <img id="pathsImage" src="" alt="Тропы желаний" class="analysis-image">
+                    </div>
+                    <div class="insights">
+                        <h4>Паттерны движения:</h4>
+                        <ul id="pathsInsights">
+                            <li>Загрузка данных...</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Анализ очередей -->
+            <section class="queue-section">
+                <h2><i class="fas fa-users-line"></i> Анализ загруженности</h2>
+                <div class="analysis-card">
+                    <div class="chart-container">
+                        <img id="queueImage" src="" alt="Анализ очередей" class="analysis-image">
+                    </div>
+                    <div class="insights">
+                        <h4>Рекомендации по загруженности:</h4>
+                        <ul id="queueInsights">
+                            <li>Загрузка данных...</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Временной анализ -->
+            <section class="time-analysis-section">
+                <h2><i class="fas fa-chart-bar"></i> Временные паттерны</h2>
+                <div class="analysis-card">
+                    <div id="timeAnalysisContainer">
+                        <p>Загрузка временного анализа...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Действия -->
+            <section class="actions-section">
+                <h2><i class="fas fa-lightbulb"></i> Рекомендации для бизнеса</h2>
+                <div class="recommendations-grid">
+                    <div class="recommendation-card">
+                        <i class="fas fa-store"></i>
+                        <h4>Оптимизация планировки</h4>
+                        <p>Используйте тепловые карты для переноса товаров в популярные зоны</p>
+                    </div>
+                    <div class="recommendation-card">
+                        <i class="fas fa-user-plus"></i>
+                        <h4>Управление персоналом</h4>
+                        <p>Планируйте смены на основе графика загруженности</p>
+                    </div>
+                    <div class="recommendation-card">
+                        <i class="fas fa-arrows-alt"></i>
+                        <h4>Улучшение flow</h4>
+                        <p>Оптимизируйте движение клиентов по результатам троп желаний</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Футер -->
+        <footer class="footer">
+            <p>&copy; 2024 Aura Analytics. Данные анализа сохраняются локально и не передаются третьим лицам.</p>
+        </footer>
+    </div>
+
+    <!-- Скрипты -->
+    <script src="/static/js/analytics.js"></script>
+</body>
+</html>

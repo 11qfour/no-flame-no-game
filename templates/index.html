@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraAI - AI-аналитик физических пространств</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=2.9" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Хедер -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="logo-text">
+                    <h1 class="gradient-title">AuraAI</h1>
+                    <span class="tagline">AI-аналитик физических пространств</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Главная секция -->
+        <main class="main-content">
+            <div class="content-card">
+                <!-- Hero секция -->
+                <div class="hero">
+                    <h2>Превратите обычную камеру в мощный инструмент бизнес-аналитики</h2>
+                    <p class="hero-description">
+                        Загрузите видео из вашего заведения и получите глубокую аналитику поведения клиентов:
+                        тепловые карты, тропы желаний и анализ очередей.
+                    </p>
+                </div>
+
+                <!-- Преимущества -->
+                <div class="features">
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-fire"></i>
+                            <h3>Тепловые карты</h3>
+                            <p>Узнайте, где ваши клиенты проводят больше всего времени</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-route"></i>
+                            <h3>Тропы желаний</h3>
+                            <p>Визуализация популярных маршрутов движения посетителей</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-users"></i>
+                            <h3>Анализ очередей</h3>
+                            <p>Отслеживание времени ожидания и загруженности</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Предустановленные видео для тестирования -->
+                <div class="demo-videos-section">
+                    <h3>🎬 Попробуйте на тестовых видео</h3>
+                    <p>Выберите одно из предустановленных видео для быстрого тестирования или загрузите своё</p>
+                    
+                    <div class="demo-videos-grid">
+                        <div class="demo-video-card" data-video="videos/просто идущие.mp4">
+                            <div class="video-preview">
+                                <img src="/static/images/просто идущие.png" alt="Пешеходная улица Сочи" class="preview-image">
+                                <div class="play-overlay">
+                                    <i class="fas fa-play-circle"></i>
+                                </div>
+                                <span class="video-duration">17 сек</span>
+                            </div>
+                            <div class="video-info">
+                                <h4>Пешеходная улица Сочи</h4>
+                                <p>Люди спокойно идут пешком</p>
+                                <button class="select-video-btn" onclick="selectDemoVideo('videos/просто идущие.mp4', 'Пешеходная улица Сочи')">
+                                    <i class="fas fa-magic"></i>
+                                    Выбрать это видео
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="demo-video-card" data-video="videos/1.mp4">
+                            <div class="video-preview">
+                                <img src="/static/images/1.png" alt="Подъём на гору" class="preview-image">
+                                <div class="play-overlay">
+                                    <i class="fas fa-play-circle"></i>
+                                </div>
+                                <span class="video-duration">10 сек</span>
+                            </div>
+                            <div class="video-info">
+                                <h4>Подъём на гору</h4>
+                                <p>Люди поднимаются к смотровой вышке</p>
+                                <button class="select-video-btn" onclick="selectDemoVideo('videos/1.mp4', 'Подъём на гору')">
+                                    <i class="fas fa-magic"></i>
+                                    Выбрать это видео
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="demo-video-card" data-video="videos/прошла остановилась.mp4">
+                            <div class="video-preview">
+                                <img src="/static/images/прошла остановилась.png" alt="Прилавки в горах Сочи" class="preview-image">
+                                <div class="play-overlay">
+                                    <i class="fas fa-play-circle"></i>
+                                </div>
+                                <span class="video-duration">8 сек</span>
+                            </div>
+                            <div class="video-info">
+                                <h4>Прилавки в горах Сочи</h4>
+                                <p>Люди проходят вдоль прилавков</p>
+                                <button class="select-video-btn" onclick="selectDemoVideo('videos/прошла остановилась.mp4', 'Прилавки в горах Сочи')">
+                                    <i class="fas fa-magic"></i>
+                                    Выбрать это видео
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Форма загрузки -->
+                <div class="upload-section">
+                    <div class="upload-container">
+                        <h3>Загрузите своё видео для анализа</h3>
+                        <p>Поддерживаются форматы: MP4, AVI, MOV. Максимальный размер: 500MB</p>
+                        
+                        <form id="uploadForm" enctype="multipart/form-data">
+                            <div class="file-upload-area" id="fileUploadArea">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Перетащите видео сюда или <span class="browse-link">выберите файл</span></p>
+                                <input type="file" id="videoFile" name="file" accept="video/*" hidden>
+                            </div>
+                            
+                            <div class="upload-progress" id="uploadProgress" style="display: none;">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progressFill"></div>
+                                </div>
+                                <p class="progress-text" id="progressText">Загрузка...</p>
+                            </div>
+                            
+                            <button type="submit" class="upload-btn" id="uploadBtn" disabled>
+                                <i class="fas fa-magic"></i>
+                                Анализировать видео
+                            </button>
+                            
+                            <div class="upload-info">
+                                <p><i class="fas fa-clock"></i> Среднее время обработки видео: <strong>1 минута</strong></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Результаты -->
+                <div class="results-section" id="resultsSection" style="display: none;">
+                    <h3>Результаты анализа</h3>
+                    <div id="resultsContainer"></div>
+                    
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Футер -->
+        <footer class="footer">
+            <div class="footer-card">
+                <p>&copy; 2025 Aura Analytics. Революция в понимании клиентского поведения.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Модальное окно для увеличения изображений -->
+    <div class="modal-overlay" id="imageModal">
+        <div class="modal-content">
+            <div class="modal-close" id="modalClose">&times;</div>
+            <img class="modal-image" id="modalImage" alt="Увеличенное изображение">
+        </div>
+    </div>
+
+    <!-- Скрипты -->
+    <script src="/static/js/script.js?v=2.1"></script>
+</body>
+</html>
