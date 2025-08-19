@@ -88,11 +88,21 @@
             if (progressText) {
                 progressText.textContent = '❌ Ошибка анализа демо-видео';
             }
-            setTimeout(() => {
-                if (window.resetUploadForm) {
-                    window.resetUploadForm();
-                }
-            }, 2000);
+            const uploadProgress = document.getElementById('uploadProgress');
+            const uploadBtn = document.getElementById('uploadBtn');
+            
+            if (progressText) progressText.textContent = `❌ ${e.message}`;
+            if (uploadProgress) uploadProgress.style.display = 'block';
+            if (uploadBtn) {
+                uploadBtn.style.display = 'inline-flex';
+                uploadBtn.disabled = false;
+                uploadBtn.innerHTML = '<i class="fas fa-plus"></i> Анализировать другое видео';
+            }
+            // setTimeout(() => {
+            //     if (window.resetUploadForm) {
+            //         window.resetUploadForm();
+            //     }
+            // }, 2000);
         }
     }
     
@@ -343,6 +353,15 @@ document.addEventListener('DOMContentLoaded', function() {
         await uploadAndAnalyze(videoFileInput.files[0]);
     });
 
+// Поведение кнопки "Анализировать другое видео" и перезагрузка способа выбора
+    uploadBtn.addEventListener('click', (e) => {
+        if (uploadBtn.innerText.includes('Анализировать другое видео')) {
+            // Открываем проводник, если ранее видео выбирали из проводника
+            e.preventDefault();
+            videoFileInput.click();
+        }
+    });
+
     async function uploadAndAnalyze(file) {
         // Показываем прогресс
         uploadProgress.style.display = 'block';
@@ -448,7 +467,10 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
             console.error('Ошибка:', error);
             showError(`Ошибка обработки видео: ${error.message}`);
-            resetUploadForm();
+            uploadBtn.style.display = 'inline-flex';
+            uploadBtn.disabled = false;
+            uploadBtn.innerHTML = '<i class="fas fa-plus"></i> Анализировать другое видео';
+            
             // Скрываем прогресс при ошибке
             uploadProgress.style.display = 'none';
         }
