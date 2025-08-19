@@ -32,9 +32,9 @@
         // Показываем прогресс
         uploadProgress.style.display = 'block';
         progressText.textContent = `Анализируем демо-видео: ${videoName}`;
-        
+        const serverPath = videoPath.startsWith('/') ? videoPath.slice(1) : videoPath;
         // Запускаем анализ демо-видео
-        analyzeDemoVideo(videoPath, videoName);
+        analyzeDemoVideo(serverPath, videoName);
     }
     
     // Функция для анализа демо-видео
@@ -46,7 +46,7 @@
             await simulateProgress();
             
             console.log('📡 Отправляем запрос на /analyze-demo-video');
-            
+            const cleanPath = videoPath.startsWith('/') ? videoPath.substring(1) : videoPath;
             // Отправляем запрос на анализ
             const response = await fetch('/analyze-demo-video', {
                 method: 'POST',
@@ -54,7 +54,7 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    video_path: videoPath,
+                    video_path: cleanPath,
                     video_name: videoName
                 })
             });
@@ -184,6 +184,15 @@
         document.body.style.overflow = 'auto'; // Возвращаем прокрутку
     }
 
+    function openDemoVideoPlayer(src) {
+        const videoModal = document.getElementById('videoModal');
+        const demoPlayer = document.getElementById('demoPlayer');
+        if (!videoModal || !demoPlayer) return;
+        demoPlayer.src = src;
+        videoModal.style.display = 'flex';
+        demoPlayer.play();
+    }
+
 document.addEventListener('DOMContentLoaded', function() {
     // Функция задержки
     function sleep(ms) {
@@ -205,6 +214,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const imageModal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
     const modalClose = document.getElementById('modalClose');
+    const videoModal = document.getElementById('videoModal');
+    const videoModalClose = document.getElementById('videoModalClose');
 
     // Обработка drag & drop
     fileUploadArea.addEventListener('click', () => {
@@ -222,6 +233,21 @@ document.addEventListener('DOMContentLoaded', function() {
             closeImageModal();
         }
     });
+
+    if (videoModalClose) {
+        videoModalClose.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (videoModal) videoModal.style.display = 'none';
+        });
+    }
+
+    if (videoModal) {
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                videoModal.style.display = 'none';
+            }
+        });
+    }
     
     // Закрытие по Escape
     document.addEventListener('keydown', (e) => {
@@ -233,6 +259,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация прогресса
     progressFill.style.width = '0%';
     progressText.textContent = 'Готов к анализу';
+
+// Отрисуем первый кадр для preview-видео
+    const previewVideos = document.querySelectorAll('.preview-video');
+    previewVideos.forEach((vid) => {
+        vid.addEventListener('loadedmetadata', function() {
+            try {
+                this.currentTime = 0.1;
+            } catch (e) {}
+        });
+        const freezeFirstFrame = function() {
+            try { this.pause(); } catch (e) {}
+            this.removeEventListener('timeupdate', freezeFirstFrame);
+        };
+        vid.addEventListener('timeupdate', freezeFirstFrame);
+        vid.muted = true;
+        vid.playsInline = true;
+        try { vid.load(); } catch (e) {}
+    });
 
     fileUploadArea.addEventListener('dragover', (e) => {
         e.preventDefault();
@@ -355,28 +399,28 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Показываем прогресс анализа с задержками
-            await sleep(400);
+            await sleep(600);
             updateProgress(25, loadingMessages[2]);
             
-            await sleep(400);
+            await sleep(600);
             updateProgress(35, loadingMessages[3]);
             
-            await sleep(400);
+            await sleep(600);
             updateProgress(45, loadingMessages[4]);
             
-            await sleep(400);
+            await sleep(600);
             updateProgress(55, loadingMessages[5]);
             
-            await sleep(400);
+            await sleep(600);
             updateProgress(65, loadingMessages[6]);
             
             const result = await response.json();
             
             if (result.status === 'success') {
-                await sleep(400);
+                await sleep(600);
                 updateProgress(75, loadingMessages[7]);
                 
-                await sleep(400);
+                await sleep(600);
                 updateProgress(85, loadingMessages[8]);
                 
                 // Небольшая задержка для симуляции обработки
@@ -878,6 +922,7 @@ function getCurrentVideoFilename() {
 }
 
 // Делаем функции доступными глобально
+window.openDemoVideoPlayer=openDemoVideoPlayer;
 window.selectDemoVideo = selectDemoVideo;
 window.analyzeDemoVideo = analyzeDemoVideo;
 window.simulateProgress = simulateProgress;

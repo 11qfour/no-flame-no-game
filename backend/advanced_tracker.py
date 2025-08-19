@@ -69,6 +69,9 @@ class AdvancedPersonTracker:
                 if self.disappeared[person_id] > self.max_disappeared:
                     self._delete_tracker(person_id)
         
+        # Убираем дубликаты трекеров, которые фактически относятся к одному человеку
+        self._deduplicate_overlapping_trackers()
+
         # Логируем состояние трекинга
         if frame_number % 30 == 0:  # Каждые 30 кадров
             active_trackers = len(self.trackers)
@@ -131,7 +134,14 @@ class AdvancedPersonTracker:
                 traj = self.trackers[person_id].get_trajectory()
                 if len(traj) >= 2:
                     last_step = self._calculate_distance((traj[-1]['x'], traj[-1]['y']), (traj[-2]['x'], traj[-2]['y']))
-                    adaptive_distance = min(220, max(70, max_distance + 0.6 * last_step))
+                    adaptive_distance = min(260, max(70, max_distance + 0.6 * last_step))
+                # Масштабируем порог по размеру боксов детекции и трекера
+                det_w = detections[i][2]
+                det_h = detections[i][3]
+                det_diag = math.hypot(det_w, det_h)
+                last_diag = self._get_last_bbox_diag(person_id)
+                size_bonus = 0.5 * (det_diag + last_diag)
+                adaptive_distance += 0.4 * size_bonus
                 if person_id not in matched_trackers and distance_matrix[i, j] < adaptive_distance:
                     # Проверка согласованности направления (cos между вектором движения и вектором к новой детекции)
                     direction_ok = True
@@ -187,10 +197,52 @@ class AdvancedPersonTracker:
                     total_dist = 0.0
                     for k in range(1, len(traj)):
                         total_dist += self._calculate_distance((traj[k-1]['x'], traj[k-1]['y']), (traj[k]['x'], traj[k]['y']))
-                    if total_dist < 25.0:
-                        continue
+                    # Динамический порог: зависит от среднего размера бокса (перспективы)
+                    avg_w = np.mean([p.get('width', 0) for p in traj if p.get('width') is not None]) or 0
+                    avg_h = np.mean([p.get('height', 0) for p in traj if p.get('height') is not None]) or 0
+                    size_thr = 0.18 * (avg_w + avg_h) + 6.0
+                    if total_dist < max(6.0, size_thr):
+                        # Оставляем стоячих, если кадры длиннее (очереди) — но траекторию помечаем как короткую
+                        pass
                 trajectories[person_id] = traj
         return trajectories
+
+    def _get_last_bbox_diag(self, person_id: str) -> float:
+        if person_id not in self.trackers:
+            return 0.0
+        traj = self.trackers[person_id].get_trajectory()
+        if not traj:
+            return 0.0
+        w = traj[-1].get('width', 0)
+        h = traj[-1].get('height', 0)
+        return math.hypot(w, h)
+
+    def _deduplicate_overlapping_trackers(self):
+        """Удаляет дубликаты трекеров, которые движутся как один объект"""
+        ids = list(self.trackers.keys())
+        to_remove = set()
+        for i in range(len(ids)):
+            for j in range(i+1, len(ids)):
+                id1, id2 = ids[i], ids[j]
+                if id1 in to_remove or id2 in to_remove:
+                    continue
+                pos1 = self.trackers[id1].get_current_position()
+                pos2 = self.trackers[id2].get_current_position()
+                # Порог на основе среднего диагонального размера
+                thr = 0.4 * (self._get_last_bbox_diag(id1) + self._get_last_bbox_diag(id2)) + 10
+                if self._calculate_distance(pos1, pos2) <= max(12, thr):
+                    # Сравним последние точки траекторий
+                    t1 = self.trackers[id1].get_trajectory()
+                    t2 = self.trackers[id2].get_trajectory()
+                    K = min(8, len(t1), len(t2))
+                    if K >= 4:
+                        mean_d = np.mean([self._calculate_distance((t1[-k]['x'], t1[-k]['y']), (t2[-k]['x'], t2[-k]['y'])) for k in range(1, K+1)])
+                        if mean_d < max(8, 0.25 * thr):
+                            # Удаляем более короткий (считаем дубликатом)
+                            drop = id1 if len(t1) < len(t2) else id2
+                            to_remove.add(drop)
+        for pid in to_remove:
+            self._delete_tracker(pid)
     
     def get_people_per_frame(self) -> List[int]:
         """Получает количество людей в каждом кадре"""

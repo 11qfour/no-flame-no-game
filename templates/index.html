@@ -62,9 +62,9 @@
                     <p>Выберите одно из предустановленных видео для быстрого тестирования или загрузите своё</p>
                     
                     <div class="demo-videos-grid">
-                        <div class="demo-video-card" data-video="videos/просто идущие.mp4">
-                            <div class="video-preview">
-                                <img src="/static/images/просто идущие.png" alt="Пешеходная улица Сочи" class="preview-image">
+                        <div class="demo-video-card" data-video="static/videos/simple_walking.mp4">
+                            <div class="video-preview" onclick="openDemoVideoPlayer('/static/videos/simple_walking.mp4')">
+                                <video class="preview-video" src="/static/videos/simple_walking.mp4" preload="metadata" muted playsinline></video>
                                 <div class="play-overlay">
                                     <i class="fas fa-play-circle"></i>
                                 </div>
@@ -72,17 +72,17 @@
                             </div>
                             <div class="video-info">
                                 <h4>Пешеходная улица Сочи</h4>
-                                <p>Люди спокойно идут пешком</p>
-                                <button class="select-video-btn" onclick="selectDemoVideo('videos/просто идущие.mp4', 'Пешеходная улица Сочи')">
+                                <p>Люди идут мимо рекламного баннера</p>
+                                <button class="select-video-btn" onclick="selectDemoVideo('static/videos/simple_walking.mp4', 'Пешеходная улица Сочи')">
                                     <i class="fas fa-magic"></i>
                                     Выбрать это видео
                                 </button>
                             </div>
                         </div>
                         
-                        <div class="demo-video-card" data-video="videos/1.mp4">
-                            <div class="video-preview">
-                                <img src="/static/images/1.png" alt="Подъём на гору" class="preview-image">
+                        <div class="demo-video-card" data-video="static/videos/1.mp4">
+                            <div class="video-preview" onclick="openDemoVideoPlayer('/static/videos/1.mp4')">
+                                <video class="preview-video" src="/static/videos/1.mp4" preload="metadata" muted playsinline></video>
                                 <div class="play-overlay">
                                     <i class="fas fa-play-circle"></i>
                                 </div>
@@ -91,25 +91,25 @@
                             <div class="video-info">
                                 <h4>Подъём на гору</h4>
                                 <p>Люди поднимаются к смотровой вышке</p>
-                                <button class="select-video-btn" onclick="selectDemoVideo('videos/1.mp4', 'Подъём на гору')">
+                                <button class="select-video-btn" onclick="selectDemoVideo('static/videos/1.mp4', 'Подъём на гору')">
                                     <i class="fas fa-magic"></i>
                                     Выбрать это видео
                                 </button>
                             </div>
                         </div>
                         
-                        <div class="demo-video-card" data-video="videos/прошла остановилась.mp4">
-                            <div class="video-preview">
-                                <img src="/static/images/прошла остановилась.png" alt="Прилавки в горах Сочи" class="preview-image">
+                        <div class="demo-video-card" data-video="static/videos/stress_testing.mp4">
+                            <div class="video-preview" onclick="openDemoVideoPlayer('/static/videos/stress_testing.mp4')">
+                                <video class="preview-video" src="/static/videos/stress_testing.mp4" preload="metadata" muted playsinline></video>
                                 <div class="play-overlay">
                                     <i class="fas fa-play-circle"></i>
                                 </div>
-                                <span class="video-duration">8 сек</span>
+                                <span class="video-duration">24 сек</span>
                             </div>
                             <div class="video-info">
-                                <h4>Прилавки в горах Сочи</h4>
-                                <p>Люди проходят вдоль прилавков</p>
-                                <button class="select-video-btn" onclick="selectDemoVideo('videos/прошла остановилась.mp4', 'Прилавки в горах Сочи')">
+                                <h4>Очередь в горах Сочи</h4>
+                                <p>Люди стоят в очереди на канатную дорогу</p>
+                                <button class="select-video-btn" onclick="selectDemoVideo('static/videos/stress_testing.mp4', 'Очередь в горах Сочи')">
                                     <i class="fas fa-magic"></i>
                                     Выбрать это видео
                                 </button>
@@ -173,6 +173,14 @@
         <div class="modal-content">
             <div class="modal-close" id="modalClose">&times;</div>
             <img class="modal-image" id="modalImage" alt="Увеличенное изображение">
+        </div>
+    </div>
+
+        <!-- Модальное окно для предпросмотра видео -->
+    <div class="modal-overlay" id="videoModal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-close" id="videoModalClose">&times;</div>
+            <video id="demoPlayer" controls style="width:100%; height:auto; border-radius:12px"></video>
         </div>
     </div>
 
